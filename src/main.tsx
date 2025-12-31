@@ -7,6 +7,10 @@ import { routeTree } from "./routeTree.gen.ts";
 const router = createRouter({
   routeTree,
 });
+if (!localStorage.getItem("theme")) {
+  document.documentElement.classList.add("dark");
+  localStorage.setItem("theme", "dark");
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
