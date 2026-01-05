@@ -77,7 +77,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar {...props}>
       <SidebarHeader>
         <DarkModeButton />
-        <SidebarMenu>
+
+        {/* vet inte om jag ska ha den här biten men kanske idk */}
+
+        {/* <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
@@ -86,12 +89,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-medium">Documentation</span>
-                  <span className="">v1.0.0</span>
                 </div>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
-        </SidebarMenu>
+        </SidebarMenu> */}
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
