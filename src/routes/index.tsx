@@ -14,16 +14,9 @@ function HomeComponent() {
       {/* main content */}
 
       <div className="text-center">
-        <h1 className="text-3xl font-bold mb-4">Vite + React + shadcn</h1>
-        <p className="text-muted-foreground mb-6">
-          Edit <code>src/routes/index.tsx</code> and save to test HMR
-        </p>
+        <h1 className="text-3xl font-bold mb-4">Trivia Quiz</h1>
+        <p className="text-muted-foreground mb-6"></p>
       </div>
-
-      <div className="flex flex-col items-center gap-4">
-        <CountButton />
-      </div>
-
       <div className="grid gap-6 md:grid-cols-2">
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader>
