@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import CountButton from "@/components/ui/CountButton";
+import { Link } from "@tanstack/react-router";
 import { BookOpen, Brain, Trophy } from "lucide-react";
 export const Route = createFileRoute("/")({
   component: HomeComponent,
@@ -23,22 +24,7 @@ function HomeComponent() {
         <CountButton />
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        <Card className="hover:shadow-lg transition-shadow">
-          <CardHeader>
-            <div className="flex items-center gap-2 mb-2">
-              <Brain className="h-5 w-5 text-blue-500" />
-              <CardTitle>Math Quiz</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm mb-4">
-              Test your math skills with algebra, geometry, and calculus
-              questions.
-            </p>
-            <button className="w-full">Start Quiz</button>
-          </CardContent>
-        </Card>
+      <div className="grid gap-6 md:grid-cols-2">
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader>
             <div className="flex items-center gap-2 mb-2">
@@ -51,7 +37,9 @@ function HomeComponent() {
               General knowledge questions about history, science, and pop
               culture.
             </p>
-            <button className="w-full">Start Quiz</button>
+            <Link to="/quiz" className="w-full">
+              <button className="w-full">Start Quiz</button>
+            </Link>
           </CardContent>
         </Card>
         <Card>

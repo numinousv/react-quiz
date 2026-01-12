@@ -31,8 +31,8 @@ const data = {
       url: "/quiz",
       items: [
         {
-          title: "Math",
-          url: "#",
+          title: "Quiz",
+          url: "/quiz",
         },
         {
           title: "Trivia",
