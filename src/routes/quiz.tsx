@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useMatch } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,12 +10,57 @@ type Question = {
   all_answers: string[];
 };
 
+// <<<<< (för chippe's sida) >>>>>
+
+// import { FetchQuestions, } from "quiz";
+// const aboutblabla = FetchQuestions() {
+//     try {
+//     const response = await fetch(
+//       "https://opentdb.com/api.php?amount=5&type=multiple/biology"
+//     );
+// }
+
+interface QuestionParams {
+  amount: number;
+  type: string;
+}
+
+export const fetchQuestions = async (params: QuestionParams) => {
+  //make fetch function separate in components
+  try {
+    const response = await fetch(
+      "https://opentdb.com/api.php?amount=5&type=multiple "
+    );
+    const data = await response.json();
+
+    return data.results.map((q: any) => {
+      const allAnswers = [...q.incorrect_answers, q.correct_answer];
+      const shuffledAnswers = shuffleArray(allAnswers);
+
+      return {
+        question: q.question,
+        correct_answer: q.correct_answer,
+        incorrect_answers: q.incorrect_answers,
+        all_answers: shuffledAnswers,
+      };
+    });
+  } catch (error) {
+    console.error("Failed to fetch questions", error);
+  }
+};
+
 export const Route = createFileRoute("/quiz")({
   component: QuizPage,
+  loader: async ({ location }) => {
+    console.log("!!!!", location.search);
+
+    const questions = await fetchQuestions(location.search);
+    return questions;
+  },
 });
 
 function QuizPage() {
-  const [questions, setQuestions] = useState<Question[]>([]);
+  // const [questions, setQuestions] = useState<Question[]>([]);
 
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
 
@@ -23,39 +68,41 @@ function QuizPage() {
 
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const questions = Route.useLoaderData();
+  const { isFetching } = useMatch({ from: "/quiz" });
 
-  useEffect(() => {
-    fetchQuestions();
-  }, []);
+  // useEffect(() => {
+  //   fetchQuestions();
+  // }, []);
 
-  const fetchQuestions = async () => {
-    try {
-      const response = await fetch(
-        "https://opentdb.com/api.php?amount=5&type=multiple"
-      );
-      const data = await response.json();
+  // const fetchQuestions = async () => {
+  //   //make fetch function separate in components
+  //   try {
+  //     const response = await fetch(
+  //       "https://opentdb.com/api.php?amount=5&type=multiple"
+  //     );
+  //     const data = await response.json();
 
-      const quizQuestions = data.results.map((q: any) => {
-        const allAnswers = [...q.incorrect_answers, q.correct_answer];
-        const shuffledAnswers = shuffleArray(allAnswers);
+  //     const quizQuestions = data.results.map((q: any) => {
+  //       const allAnswers = [...q.incorrect_answers, q.correct_answer];
+  //       const shuffledAnswers = shuffleArray(allAnswers);
 
-        return {
-          question: q.question,
-          correct_answer: q.correct_answer,
-          incorrect_answers: q.incorrect_answers,
-          all_answers: shuffledAnswers,
-        };
-      });
+  //       return {
+  //         question: q.question,
+  //         correct_answer: q.correct_answer,
+  //         incorrect_answers: q.incorrect_answers,
+  //         all_answers: shuffledAnswers,
+  //       };
+  //     });
 
-      setQuestions(quizQuestions);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Failed to fetch questions", error);
-      setQuestions(getBackupQuestions());
-      setIsLoading(false);
-    }
-  };
+  //     setQuestions(quizQuestions);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     console.error("Failed to fetch questions", error);
+  //     setQuestions(getBackupQuestions());
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const handleAnswerClick = (answer: string) => {
     if (selectedAnswer) return;
@@ -80,11 +127,11 @@ function QuizPage() {
     setCurrentQuestionNumber(0);
     setScore(0);
     setSelectedAnswer(null);
-    setIsLoading(true);
-    fetchQuestions();
+    // setIsLoading(true);
+    // fetchQuestions();
   };
 
-  if (isLoading) {
+  if (isFetching) {
     return (
       <div className="container max-w-2xl mx-auto p-6">
         <Card>

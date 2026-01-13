@@ -30,6 +30,9 @@ function HomeComponent() {
               General knowledge questions about history, science, and pop
               culture.
             </p>
+            <Link to="/quiz" search={{ category: "geography" }}>
+              Start geography quiz
+            </Link>
             <Link to="/quiz" className="w-full">
               <button className="w-full">Start Quiz</button>
             </Link>

@@ -51,7 +51,8 @@ export function NavMain({
                 >
                   {item.items.map((item) => (
                     <DropdownMenuItem asChild key={item.title}>
-                      <a href={item.url}>{item.title}</a>
+                      <Link to={item.url}>{item.title}</Link>
+                      {/* <a href={item.url}>{item.title}</a> */}
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
@@ -75,6 +76,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "./ui/breadcrumb";
+import { Link } from "@tanstack/react-router";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
