@@ -42,12 +42,12 @@ const data = {
       ],
     },
     {
-      title: "About",
-      url: "#",
+      title: "Game",
+      url: "/game",
       items: [
         {
           title: "Purpose",
-          url: "/about",
+          url: "/game",
         },
         {
           title: "Tools used", //skriver typ "reakt, shadcn, tailwind, etc"
