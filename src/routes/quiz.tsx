@@ -11,34 +11,39 @@ type Question = {
 };
 
 export const Route = createFileRoute("/quiz")({
-  component: QuizPage,
+  component: quiz,
 });
 
-function QuizPage() {
-  const [questions, setQuestions] = useState<Question[]>([]);
+// function QuizPage() {
+//   const [questions, setQuestions] = useState<Question[]>([]);
 
-  const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
+//   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
 
-  const [score, setScore] = useState(0);
+//   const [score, setScore] = useState(0);
 
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+//   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
+//   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    fetchQuestions();
-  }, []);
+//   useEffect(() => {
+//     fetchQuestions();
+//   }, []);
 
-  const fetchQuestions = async () => {
-    try {
-      const response = await fetch(
-        "https://opentdb.com/api.php?amount=5&type=multiple"
-      );
-      const data = await response.json();
+const url = new URL("https://opentdb.com/api.php");
 
-      const quizQuestions = data.results.map((q: any) => {
-        const allAnswers = [...q.incorrect_answers, q.correct_answer];
-        const shuffledAnswers = shuffleArray(allAnswers);
+async function fetchQuestions(category: string = "&category=23", amount: number = 5) {
+  url.search = new URLSearchParams({
+    category: "?23",
+    amount:
+  });
+
+  try {
+    const response = await fetch(url);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
         return {
           question: q.question,
@@ -46,16 +51,14 @@ function QuizPage() {
           incorrect_answers: q.incorrect_answers,
           all_answers: shuffledAnswers,
         };
-      });
 
       setQuestions(quizQuestions);
       setIsLoading(false);
-    } catch (error) {
+     catch (error) {
       console.error("Failed to fetch questions", error);
       setQuestions(getBackupQuestions());
       setIsLoading(false);
     }
-  };
 
   const handleAnswerClick = (answer: string) => {
     if (selectedAnswer) return;
@@ -194,7 +197,7 @@ function QuizPage() {
       </Card>
     </div>
   );
-}
+
 
 // shuffle array helper function very confusing wow
 function shuffleArray<T>(array: T[]): T[] {
