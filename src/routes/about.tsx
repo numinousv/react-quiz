@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "@motion/react";
 
 export const Route = createFileRoute("/about")({
   component: RouteComponent,

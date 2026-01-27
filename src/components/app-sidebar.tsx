@@ -17,57 +17,16 @@ import {
 const data = {
   navMain: [
     {
-      title: "User",
-      url: "/index",
-      items: [
-        {
-          title: "Home",
-          url: "/",
-        },
-      ],
+      title: "Home",
+      url: "/",
     },
     {
       title: "Quiz",
       url: "/quiz",
-      items: [
-        {
-          title: "Quiz",
-          url: "/quiz",
-        },
-        {
-          title: "Trivia",
-          url: "#",
-          isActive: true,
-        },
-      ],
     },
     {
       title: "About",
-      url: "#",
-      items: [
-        {
-          title: "Purpose",
-          url: "/about",
-        },
-        {
-          title: "Tools used", //skriver typ "reakt, shadcn, tailwind, etc"
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "page 3 idk",
-      url: "#",
-      items: [
-        {
-          title: "behöver idéer",
-          url: "#",
-        },
-        {
-          title: "vet inte ännu",
-          url: "#",
-        },
-      ],
+      url: "/about",
     },
   ],
 };
