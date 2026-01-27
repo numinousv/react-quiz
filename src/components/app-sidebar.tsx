@@ -56,12 +56,12 @@ const data = {
       ],
     },
     {
-      title: "page 3 idk",
+      title: "Scoreboard",
       url: "#",
       items: [
         {
-          title: "behöver idéer",
-          url: "#",
+          title: "Scoreboard",
+          url: "/scoreboard",
         },
         {
           title: "vet inte ännu",

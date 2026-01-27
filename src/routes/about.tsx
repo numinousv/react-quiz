@@ -22,7 +22,7 @@ function RouteComponent() {
     },
     {
       name: "Akram",
-      age: 20,
+      age: 24,
       about: "A core member of the team developing our Quiz App, dedicated to implementing smart features and efficient code structures.",
     },
     {
