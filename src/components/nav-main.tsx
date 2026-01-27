@@ -36,28 +36,11 @@ export function NavMain({
     <SidebarGroup>
       <SidebarMenu>
         {items.map((item) => (
-          <DropdownMenu key={item.title}>
-            <SidebarMenuItem>
-              <DropdownMenuTrigger asChild>
+            <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-                  {item.title} <MoreHorizontal className="ml-auto" />
+                  <Link to={item.url}>{item.title}</Link>
                 </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              {item.items?.length ? (
-                <DropdownMenuContent
-                  side={isMobile ? "bottom" : "right"}
-                  align={isMobile ? "end" : "start"}
-                  className="min-w-56 rounded-lg"
-                >
-                  {item.items.map((item) => (
-                    <DropdownMenuItem asChild key={item.title}>
-                      <a href={item.url}>{item.title}</a>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              ) : null}
             </SidebarMenuItem>
-          </DropdownMenu>
         ))}
       </SidebarMenu>
     </SidebarGroup>
@@ -75,8 +58,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "./ui/breadcrumb";
+import { Link, useLocation } from "@tanstack/react-router";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const { pathname } = useLocation();
+  const parsedName = pathname.replace("/", "")|| "Home"
+  
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -94,7 +81,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
               <BreadcrumbItem>
-                <BreadcrumbPage>Current Page</BreadcrumbPage>
+                <BreadcrumbPage className="capitalize">{parsedName}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
