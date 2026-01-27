@@ -42,7 +42,7 @@ function RouteComponent() {
             <div className="relative w-full overflow-auto">
               <table className="w-full caption-bottom text-sm">
                 <thead>
-                  <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted text-left font-medium">
+                  <tr className="border-b text-left font-medium text-muted-foreground">
                     <th className="h-12 px-4 align-middle">Rank</th>
                     <th className="h-12 px-4 align-middle">Name</th>
                     <th className="h-12 px-4 align-middle">Score</th>
@@ -66,7 +66,12 @@ function RouteComponent() {
                       </td>
                       <td className="p-4 align-middle font-semibold">{entry.name}</td>
                       <td className="p-4 align-middle font-mono">{entry.score} XP</td>
-                      <td className="p-4 align-middle text-right">{entry.accuracy}</td>
+                      <td className={`p-4 align-middle text-right font-bold ${
+                        parseInt(entry.accuracy) > 90 ? "text-green-500" : 
+                        parseInt(entry.accuracy) > 80 ? "text-blue-500" : "text-orange-500"
+                      }`}>
+                        {entry.accuracy}
+                      </td>
                     </motion.tr>
                   ))}
                 </tbody>
@@ -76,30 +81,29 @@ function RouteComponent() {
         </Card>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="bg-yellow-50/50 border-yellow-200">
-                <CardContent className="pt-6 flex flex-col items-center">
-                    <Trophy className="w-8 h-8 text-yellow-500 mb-2" />
-                    <p className="text-sm font-medium">Highest Score</p>
-                    <p className="text-2xl font-bold">2450</p>
-                </CardContent>
-            </Card>
-            <Card className="bg-blue-50/50 border-blue-200">
-                <CardContent className="pt-6 flex flex-col items-center">
-                    <Award className="w-8 h-8 text-blue-500 mb-2" />
-                    <p className="text-sm font-medium">Total Players</p>
-                    <p className="text-2xl font-bold">128</p>
-                </CardContent>
-            </Card>
-            <Card className="bg-green-50/50 border-green-200">
-                <CardContent className="pt-6 flex flex-col items-center">
-                    <Medal className="w-8 h-8 text-green-500 mb-2" />
-                    <p className="text-sm font-medium">Avg Accuracy</p>
-                    <p className="text-2xl font-bold">84%</p>
-                </CardContent>
-            </Card>
+          <Card className="bg-yellow-50/50 border-yellow-200">
+            <CardContent className="pt-6 flex flex-col items-center">
+              <Trophy className="w-8 h-8 text-yellow-500 mb-2" />
+              <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Highest Score</p>
+              <p className="text-3xl font-black">2450</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-blue-50/50 border-blue-200">
+            <CardContent className="pt-6 flex flex-col items-center">
+              <Award className="w-8 h-8 text-blue-500 mb-2" />
+              <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Total Players</p>
+              <p className="text-3xl font-black">128</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-green-50/50 border-green-200">
+            <CardContent className="pt-6 flex flex-col items-center">
+              <Medal className="w-8 h-8 text-green-500 mb-2" />
+              <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Avg Accuracy</p>
+              <p className="text-3xl font-black">84%</p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
   );
 }
-
