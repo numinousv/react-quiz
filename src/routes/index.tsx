@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import CountButton from "@/components/ui/CountButton";
 import { Link } from "@tanstack/react-router";
-import { BookOpen, Brain, Trophy } from "lucide-react";
+import { BookOpen, Trophy } from "lucide-react";
 export const Route = createFileRoute("/")({
   component: HomeComponent,
 });
