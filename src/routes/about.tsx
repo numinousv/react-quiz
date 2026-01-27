@@ -7,6 +7,9 @@ interface Member {
   name: string;
   age: number;
   about: string;
+  emoji?: string;
+  img?: string;
+  bgColor: string;
 }
 
 export const Route = createFileRoute("/about")({
@@ -14,67 +17,76 @@ export const Route = createFileRoute("/about")({
 });
 
 function RouteComponent() {
-  const [members, setMembers] = useState<Member[]>([
+  const [members] = useState<Member[]>([
     {
       name: "Ramz",
       age: 27,
-      about: "Currently working as a developer on our Quiz App project, focusing on building a seamless user experience and solid logic.",
+      about: "Focusing on building a seamless user experience and solid logic.",
+      emoji: "👨‍💼",
+      bgColor: "bg-blue-100",
     },
     {
       name: "Akram",
       age: 24,
-      about: "A core member of the team developing our Quiz App, dedicated to implementing smart features and efficient code structures.",
+      about:
+        "Dedicated to implementing smart features and efficient code structures.",
+      img: "https://avatars.githubusercontent.com/u/230323566",
+      bgColor: "bg-orange-100",
     },
     {
       name: "Chippe",
       age: 29,
-      about: "Contributing to the Quiz App development with a focus on UI design and ensuring the application is fun and interactive.",
+      about:
+        "Focusing on UI design and ensuring the application is fun and interactive.",
+      emoji: "💇‍♂️",
+      bgColor: "bg-green-100",
     },
     {
       name: "Laiba",
       age: 22,
-      about: "Working on the Quiz App project to create a dynamic platform where users can test their knowledge across various topics.",
+      about:
+        "Creating a dynamic platform where users can test their knowledge.",
+      emoji: "🧕",
+      bgColor: "bg-pink-100",
     },
   ]);
 
-  const addMember = () => {
-    const newMember: Member = {
-      name: "New Member",
-      age: 20,
-      about: "New developer joining the Quiz App team.",
-    };
-    setMembers([...members, newMember]);
-  };
-
   return (
     <div className="space-y-8 p-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">About Us</h1>
-        <button
-          onClick={addMember}
-          className="bg-black text-white px-4 py-2 rounded-md hover:opacity-80 transition"
-        >
-          Add Member
-        </button>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <h1 className="text-3xl font-bold text-center">Meet the Team</h1>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {members.map((m, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.1 }}
+            whileHover={{ y: -10 }}
           >
-            <Card className="hover:shadow-lg transition-shadow h-full">
-              <CardHeader>
-                <CardTitle>
-                  {m.name}, {m.age} years old
-                </CardTitle>
+            <Card className="h-full border-none shadow-lg text-center overflow-hidden">
+              <CardHeader className="flex flex-col items-center pt-8">
+                {m.img ? (
+                  <img
+                    src={m.img}
+                    alt="avatar"
+                    className={`w-24 h-24 ${m.bgColor} rounded-full flex items-center justify-center text-5xl shadow-inner border-4 border-white`}
+                  />
+                ) : (
+                  <motion.div
+                    whileHover={{ rotate: [0, -10, 10, 0] }}
+                    className={`w-24 h-24 ${m.bgColor} rounded-full flex items-center justify-center text-5xl shadow-inner border-4 border-white`}
+                  >
+                    {m.emoji}
+                  </motion.div>
+                )}
+                <CardTitle className="text-2xl mt-4">{m.name}</CardTitle>
+                <p className="text-primary font-semibold text-xs uppercase tracking-tighter">
+                  {m.age} Years Old
+                </p>
               </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  {m.about}
+              <CardContent className="pb-8">
+                <p className="text-sm text-muted-foreground leading-relaxed italic">
+                  "{m.about}"
                 </p>
               </CardContent>
             </Card>
@@ -84,19 +96,3 @@ function RouteComponent() {
     </div>
   );
 }
-
-
-// function CardTwo() {
-//   return (
-//     <motion.p animate={{ rotate: 360 }}>
-//       <div className="container max-w-2xl mx-auto p-6">
-//         <Card>
-//           <CardContent className="flex flex-col items-center justify-center py-12">
-//             <div className="h-12 w-12 border-b-2 mb-14"></div>
-//             <p>Ramz.M</p>
-//           </CardContent>
-//         </Card>
-//       </div>
-//     </motion.p>
-//   );
-// }
