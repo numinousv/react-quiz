@@ -48,10 +48,6 @@ const data = {
       title: "Feedback",
       url: "/Feedback",
     },
-    {
-      title: "emu",
-      url: "/emu",
-    },
   ],
 };
 

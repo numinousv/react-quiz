@@ -94,8 +94,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/Feedback'
     | '/about'
-    |  '/Feedback'
     | '/emu'
     | '/game'
     | '/quiz'
@@ -104,8 +104,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/Feedback'
     | '/about'
-    |  '/Feedback'
     | '/emu'
     | '/game'
     | '/quiz'
@@ -114,14 +114,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/about'
     | '/Feedback'
+    | '/about'
     | '/emu'
     | '/game'
     | '/quiz'
     | '/games/Cardgame'
     | '/games/Pokemon'
-
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
