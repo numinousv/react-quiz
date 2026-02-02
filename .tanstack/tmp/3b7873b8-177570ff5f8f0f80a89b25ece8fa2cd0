@@ -1,0 +1,133 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+type Pokemon = {
+  name: string;
+  image: string;
+  hp: number;
+  attack: number;
+};
+
+export const Route = createFileRoute("/games/pokemon-battle")({
+  component: PokemonBattlePage,
+});
+
+function PokemonBattlePage() {
+  const [player, setPlayer] = useState<Pokemon | null>(null);
+  const [enemy, setEnemy] = useState<Pokemon | null>(null);
+  const [winner, setWinner] = useState<"player" | "enemy" | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchPokemon = async (id: number): Promise<Pokemon> => {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const data = await res.json();
+
+    const hp = data.stats.find((s: any) => s.stat.name === "hp").base_stat;
+    const attack = data.stats.find(
+      (s: any) => s.stat.name === "attack"
+    ).base_stat;
+
+    return {
+      name: data.name,
+      image: data.sprites.front_default,
+      hp,
+      attack,
+    };
+  };
+
+  const startBattle = async () => {
+    setLoading(true);
+    setWinner(null);
+
+    const playerId = Math.floor(Math.random() * 151) + 1;
+    const enemyId = Math.floor(Math.random() * 151) + 1;
+
+    const playerPokemon = await fetchPokemon(playerId);
+    const enemyPokemon = await fetchPokemon(enemyId);
+
+    setPlayer(playerPokemon);
+    setEnemy(enemyPokemon);
+
+    const playerPower = playerPokemon.hp + playerPokemon.attack;
+    const enemyPower = enemyPokemon.hp + enemyPokemon.attack;
+
+    if (playerPower > enemyPower) setWinner("player");
+    else setWinner("enemy");
+
+    setLoading(false);
+  };
+
+  return (
+    <div className="container max-w-2xl mx-auto p-6 space-y-6 text-center">
+      <Card>
+        <CardHeader>
+          <CardTitle>⚔️ Pokémon Battle</CardTitle>
+        </CardHeader>
+
+        <CardContent className="space-y-6">
+          <Button onClick={startBattle} disabled={loading} className="w-full">
+            {loading ? "Battlar..." : "Starta Battle"}
+          </Button>
+
+          {player && enemy && (
+            <div className="grid grid-cols-2 gap-6">
+              <PokemonCard
+                pokemon={player}
+                title="Du"
+                highlight={winner === "player"}
+              />
+              <PokemonCard
+                pokemon={enemy}
+                title="Motståndare"
+                highlight={winner === "enemy"}
+              />
+            </div>
+          )}
+
+          {winner && (
+            <p className="text-xl font-bold">
+              {winner === "player" ? "🎉 Du vann!" : "💀 Du förlorade!"}
+            </p>
+          )}
+
+          <Link to="/games">
+            <Button variant="ghost" className="w-full">
+              ⬅ Tillbaka till spelmeny
+            </Button>
+          </Link>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+function PokemonCard({
+  pokemon,
+  title,
+  highlight,
+}: {
+  pokemon: Pokemon;
+  title: string;
+  highlight: boolean;
+}) {
+  return (
+    <div
+      className={`border rounded-lg p-4 ${
+        highlight ? "border-green-500" : ""
+      }`}
+    >
+      <h3 className="font-semibold mb-2">{title}</h3>
+      <img src={pokemon.image} alt={pokemon.name} className="mx-auto" />
+      <p className="capitalize font-bold">{pokemon.name}</p>
+      <p>❤️ HP: {pokemon.hp}</p>
+      <p>⚔️ Attack: {pokemon.attack}</p>
+      <p className="mt-2 font-semibold">
+        Power: {pokemon.hp + pokemon.attack}
+      </p>
+    </div>
+  );
+}
+
+export default PokemonBattlePage;
