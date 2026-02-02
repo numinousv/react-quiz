@@ -41,12 +41,12 @@ const data = {
       url: "/about",
     },
     {
-      title: "Feedback",
-      url: "/Feedback",
-    },
-    {
       title: "Scoreboard",
       url: "/scoreboard",
+    },
+    {
+      title: "Feedback",
+      url: "/Feedback",
     },
   ],
 };

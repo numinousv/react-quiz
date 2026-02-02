@@ -24,22 +24,22 @@ function QuizPage() {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
-
+  
   useEffect(() => {
     fetchQuestions();
   }, []);
-
+  
   const fetchQuestions = async () => {
     try {
       const response = await fetch(
         "https://opentdb.com/api.php?amount=5&type=multiple"
       );
       const data = await response.json();
-
+      
       const quizQuestions = data.results.map((q: any) => {
         const allAnswers = [...q.incorrect_answers, q.correct_answer];
         const shuffledAnswers = shuffleArray(allAnswers);
-
+        
         return {
           question: q.question,
           correct_answer: q.correct_answer,
@@ -47,43 +47,48 @@ function QuizPage() {
           all_answers: shuffledAnswers,
         };
       });
-
+      
       setQuestions(quizQuestions);
       setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch questions", error);
-      setQuestions(getBackupQuestions());
+      // setQuestions(getBackupQuestions());
       setIsLoading(false);
     }
   };
-
+  
   const handleAnswerClick = (answer: string) => {
     if (selectedAnswer) return;
-
+    
     setSelectedAnswer(answer);
-
+    
     const currentQuestion = questions[currentQuestionNumber];
     if (answer === currentQuestion.correct_answer) {
       setScore(score + 1);
     }
   };
-
+  
   const handleNextQuestion = () => {
     if (currentQuestionNumber < questions.length - 1) {
       setCurrentQuestionNumber(currentQuestionNumber + 1);
-
+      
       setSelectedAnswer(null);
     }
   };
-
-  const handleRestart = () => {
+  
+  const handleRestart = async () => {
     setCurrentQuestionNumber(0);
     setScore(0);
     setSelectedAnswer(null);
     setIsLoading(true);
-    fetchQuestions();
+    try {
+      await fetchQuestions(); // Wait for fetch to complete
+    } catch (error) {
+      console.error("Failed to fetch questions on restart:", error);
+      setIsLoading(false);
+    }
   };
-
+  
   if (isLoading) {
     return (
       <div className="container max-w-2xl mx-auto p-6">
@@ -96,9 +101,9 @@ function QuizPage() {
       </div>
     );
   }
-
+  
   const currentQuestion = questions[currentQuestionNumber];
-
+  
   if (!currentQuestion) {
     return (
       <div className="container max-w-2xl mx-auto p-6">
@@ -116,10 +121,10 @@ function QuizPage() {
       </div>
     );
   }
-
+  
   const isQuizFinished =
-    currentQuestionNumber === questions.length - 1 && selectedAnswer;
-
+  currentQuestionNumber === questions.length - 1 && selectedAnswer;
+  
   return (
     <div className="container max-w-2xl mx-auto p-6">
       <Card>
@@ -145,11 +150,11 @@ function QuizPage() {
               const isCorrect = answer === currentQuestion.correct_answer;
 
               let buttonStyle = "justify-start text-left h-auto py-3";
-
+              
               if (selectedAnswer) {
                 if (isCorrect) {
                   buttonStyle +=
-                    " bg-green-100 text-green-800 border-green-300";
+                  " bg-green-100 text-green-800 border-green-300";
                 } else if (isSelected && !isCorrect) {
                   buttonStyle += " bg-red-100 text-red-800 border-red-300";
                 }
@@ -159,12 +164,12 @@ function QuizPage() {
 
               return (
                 <Button
-                  key={index}
-                  variant="outline"
-                  className={buttonStyle}
+                key={index}
+                variant="outline"
+                className={buttonStyle}
                   onClick={() => handleAnswerClick(answer)}
                   disabled={!!selectedAnswer}
-                >
+                  >
                   <span className="text-lg">{decodeHTML(answer)}</span>
                 </Button>
               );

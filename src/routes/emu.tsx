@@ -94,11 +94,11 @@ function EmuPage() {
       // Launch demo - using a known working demo URL
       const instance = await (window as any).Nostalgist.nes({
         core: 'fceumm',
-        rom: 'https://raw.githubusercontent.com/hiulit/Nostalgist/main/public/roms/nes/smb.nes'
+        rom: 'https://files.catbox.moe/qya8l0.nes'
       })
       
       setGameLoaded(true)
-      setRomFile(new File([], "Super Mario Bros (Demo)"))
+      setRomFile(new File([], "Battletoads"))
       console.log("Demo launched successfully:", instance)
       
     } catch (err: any) {
@@ -110,7 +110,7 @@ function EmuPage() {
         setError("Trying alternative method...")
         const instance2 = await (window as any).Nostalgist({
           core: 'fceumm',
-          rom: 'https://raw.githubusercontent.com/hiulit/Nostalgist/main/public/roms/nes/smb.nes'
+          rom: 'https://files.catbox.moe/qya8l0.nes'
         })
         setGameLoaded(true)
         setError(null)
@@ -290,7 +290,7 @@ function EmuPage() {
                       disabled={loading || !nostalgistLoaded}
                       variant="secondary"
                     >
-                      Try Super Mario Bros Demo
+                      Try Battletoads
                     </Button>
                   </div>
                 </div>
