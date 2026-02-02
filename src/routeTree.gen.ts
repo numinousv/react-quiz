@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ScoreboardRouteImport } from './routes/scoreboard'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as GameRouteImport } from './routes/game'
 import { Route as EmuRouteImport } from './routes/emu'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as GamesPokemonRouteImport } from './routes/games/Pokemon'
 import { Route as GamesCardgameRouteImport } from './routes/games/Cardgame'
 
+const ScoreboardRoute = ScoreboardRouteImport.update({
+  id: '/scoreboard',
+  path: '/scoreboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuizRoute = QuizRouteImport.update({
   id: '/quiz',
   path: '/quiz',
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/emu': typeof EmuRoute
   '/game': typeof GameRoute
   '/quiz': typeof QuizRoute
+  '/scoreboard': typeof ScoreboardRoute
   '/games/Cardgame': typeof GamesCardgameRoute
   '/games/Pokemon': typeof GamesPokemonRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/emu': typeof EmuRoute
   '/game': typeof GameRoute
   '/quiz': typeof QuizRoute
+  '/scoreboard': typeof ScoreboardRoute
   '/games/Cardgame': typeof GamesCardgameRoute
   '/games/Pokemon': typeof GamesPokemonRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/emu': typeof EmuRoute
   '/game': typeof GameRoute
   '/quiz': typeof QuizRoute
+  '/scoreboard': typeof ScoreboardRoute
   '/games/Cardgame': typeof GamesCardgameRoute
   '/games/Pokemon': typeof GamesPokemonRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/emu'
     | '/game'
     | '/quiz'
+    | '/scoreboard'
     | '/games/Cardgame'
     | '/games/Pokemon'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/emu'
     | '/game'
     | '/quiz'
+    | '/scoreboard'
     | '/games/Cardgame'
     | '/games/Pokemon'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/emu'
     | '/game'
     | '/quiz'
+    | '/scoreboard'
     | '/games/Cardgame'
     | '/games/Pokemon'
   fileRoutesById: FileRoutesById
@@ -130,12 +142,20 @@ export interface RootRouteChildren {
   EmuRoute: typeof EmuRoute
   GameRoute: typeof GameRoute
   QuizRoute: typeof QuizRoute
+  ScoreboardRoute: typeof ScoreboardRoute
   GamesCardgameRoute: typeof GamesCardgameRoute
   GamesPokemonRoute: typeof GamesPokemonRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/scoreboard': {
+      id: '/scoreboard'
+      path: '/scoreboard'
+      fullPath: '/scoreboard'
+      preLoaderRoute: typeof ScoreboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quiz': {
       id: '/quiz'
       path: '/quiz'
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmuRoute: EmuRoute,
   GameRoute: GameRoute,
   QuizRoute: QuizRoute,
+  ScoreboardRoute: ScoreboardRoute,
   GamesCardgameRoute: GamesCardgameRoute,
   GamesPokemonRoute: GamesPokemonRoute,
 }
