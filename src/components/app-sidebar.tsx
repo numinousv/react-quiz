@@ -31,23 +31,14 @@ const data = {
     {
       title: "Game",
       url: "/game",
-<<<<<<< HEAD
-=======
-      items: [
-        {
-          title: "Question Trivia",
-          url: "/game",
-        },
-        {
-          title: "Card Game", //skriver typ "reakt, shadcn, tailwind, etc"
-          url: "games/Cardgame",
-        },
-        {
-          title: "Pokemon",
-          url: "games/Pokemon",
-        }
-      ],
->>>>>>> bd92214b1abd780770a8a8f003119c3753408b53
+    },
+    {
+      title: "Card Game",
+      url: "/games/Cardgame",
+    },
+    {
+      title: "Pokemon Game",
+      url: "/games/Pokemon",
     },
     {
       title: "About",
