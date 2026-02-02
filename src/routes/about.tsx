@@ -14,6 +14,7 @@ export const Route = createFileRoute("/about")({
 });
 
 function RouteComponent() {
+
   const [members, setMembers] = useState<Member[]>([
     {
       name: "Ramz",

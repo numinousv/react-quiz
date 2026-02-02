@@ -45,6 +45,10 @@ const data = {
       url: "/about",
     },
     {
+      title: "Feedback",
+      url: "/Feedback",
+    },
+    {
       title: "emu",
       url: "/emu",
     },

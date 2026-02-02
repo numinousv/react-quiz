@@ -10,27 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as QuizRouteImport } from './routes/quiz'
-import { Route as GameRouteImport } from './routes/game'
-import { Route as EmuRouteImport } from './routes/emu'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as FeedbackRouteImport } from './routes/Feedback'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as GamesPokemonRouteImport } from './routes/games/Pokemon'
-import { Route as GamesCardgameRouteImport } from './routes/games/Cardgame'
 
 const QuizRoute = QuizRouteImport.update({
   id: '/quiz',
   path: '/quiz',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GameRoute = GameRouteImport.update({
-  id: '/game',
-  path: '/game',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmuRoute = EmuRouteImport.update({
-  id: '/emu',
-  path: '/emu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -48,91 +34,39 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GamesPokemonRoute = GamesPokemonRouteImport.update({
-  id: '/games/Pokemon',
-  path: '/games/Pokemon',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GamesCardgameRoute = GamesCardgameRouteImport.update({
-  id: '/games/Cardgame',
-  path: '/games/Cardgame',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/Feedback': typeof FeedbackRoute
   '/about': typeof AboutRoute
-  '/emu': typeof EmuRoute
-  '/game': typeof GameRoute
   '/quiz': typeof QuizRoute
-  '/games/Cardgame': typeof GamesCardgameRoute
-  '/games/Pokemon': typeof GamesPokemonRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/Feedback': typeof FeedbackRoute
   '/about': typeof AboutRoute
-  '/emu': typeof EmuRoute
-  '/game': typeof GameRoute
   '/quiz': typeof QuizRoute
-  '/games/Cardgame': typeof GamesCardgameRoute
-  '/games/Pokemon': typeof GamesPokemonRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/Feedback': typeof FeedbackRoute
   '/about': typeof AboutRoute
-  '/emu': typeof EmuRoute
-  '/game': typeof GameRoute
   '/quiz': typeof QuizRoute
-  '/games/Cardgame': typeof GamesCardgameRoute
-  '/games/Pokemon': typeof GamesPokemonRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    |  '/Feedback'
-    | '/emu'
-    | '/game'
-    | '/quiz'
-    | '/games/Cardgame'
-    | '/games/Pokemon'
+  fullPaths: '/' | '/Feedback' | '/about' | '/quiz'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    |  '/Feedback'
-    | '/emu'
-    | '/game'
-    | '/quiz'
-    | '/games/Cardgame'
-    | '/games/Pokemon'
-  id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/Feedback'
-    | '/emu'
-    | '/game'
-    | '/quiz'
-    | '/games/Cardgame'
-    | '/games/Pokemon'
-
+  to: '/' | '/Feedback' | '/about' | '/quiz'
+  id: '__root__' | '/' | '/Feedback' | '/about' | '/quiz'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FeedbackRoute: typeof FeedbackRoute
   AboutRoute: typeof AboutRoute
-  EmuRoute: typeof EmuRoute
-  GameRoute: typeof GameRoute
   QuizRoute: typeof QuizRoute
-  GamesCardgameRoute: typeof GamesCardgameRoute
-  GamesPokemonRoute: typeof GamesPokemonRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -142,20 +76,6 @@ declare module '@tanstack/react-router' {
       path: '/quiz'
       fullPath: '/quiz'
       preLoaderRoute: typeof QuizRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/game': {
-      id: '/game'
-      path: '/game'
-      fullPath: '/game'
-      preLoaderRoute: typeof GameRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/emu': {
-      id: '/emu'
-      path: '/emu'
-      fullPath: '/emu'
-      preLoaderRoute: typeof EmuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -179,20 +99,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/games/Pokemon': {
-      id: '/games/Pokemon'
-      path: '/games/Pokemon'
-      fullPath: '/games/Pokemon'
-      preLoaderRoute: typeof GamesPokemonRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/games/Cardgame': {
-      id: '/games/Cardgame'
-      path: '/games/Cardgame'
-      fullPath: '/games/Cardgame'
-      preLoaderRoute: typeof GamesCardgameRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -200,11 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FeedbackRoute: FeedbackRoute,
   AboutRoute: AboutRoute,
-  EmuRoute: EmuRoute,
-  GameRoute: GameRoute,
   QuizRoute: QuizRoute,
-  GamesCardgameRoute: GamesCardgameRoute,
-  GamesPokemonRoute: GamesPokemonRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
