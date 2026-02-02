@@ -46,13 +46,17 @@ const data = {
       url: "/game",
       items: [
         {
-          title: "Purpose",
+          title: "Question Trivia",
           url: "/game",
         },
         {
-          title: "Tools used", //skriver typ "reakt, shadcn, tailwind, etc"
-          url: "#",
+          title: "Card Game", //skriver typ "reakt, shadcn, tailwind, etc"
+          url: "games/Cardgame",
         },
+        {
+          title: "Pokemon",
+          url: "games/Pokemon",
+        }
       ],
     },
     {
