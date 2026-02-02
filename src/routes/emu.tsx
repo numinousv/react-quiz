@@ -295,50 +295,6 @@ function EmuPage() {
                   </div>
                 </div>
                 
-                {/* Quick test buttons */}
-                <div className="border-t pt-4">
-                  <p className="text-sm text-muted-foreground mb-2">Quick test:</p>
-                  <div className="flex flex-wrap gap-2">
-                    <Button 
-                      size="sm" 
-                      variant="ghost"
-                      onClick={async () => {
-                        if (!(window as any).Nostalgist) return
-                        setLoading(true)
-                        try {
-                          // Test if Nostalgist.nes exists
-                          console.log("Testing .nes() method...")
-                          console.log("Nostalgist:", (window as any).Nostalgist)
-                          console.log(".nes method:", (window as any).Nostalgist.nes)
-                          
-                          // Try calling it
-                          const result = await (window as any).Nostalgist.nes?.()
-                          console.log("Result:", result)
-                          alert(".nes() method exists! Check console.")
-                        } catch (err) {
-                          console.error("Test failed:", err)
-                          alert("Test failed. Check console.")
-                        } finally {
-                          setLoading(false)
-                        }
-                      }}
-                    >
-                      Test .nes() method
-                    </Button>
-                    
-                    <Button 
-                      size="sm" 
-                      variant="ghost"
-                      onClick={() => {
-                        console.log("All window.Nostalgist properties:")
-                        console.log(Object.keys((window as any).Nostalgist || {}))
-                        alert("Check console for properties")
-                      }}
-                    >
-                      List Properties
-                    </Button>
-                  </div>
-                </div>
               </div>
             ) : (
               // Game controls
@@ -368,9 +324,7 @@ function EmuPage() {
           <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
             <h3 className="font-medium mb-2">How it works:</h3>
             <ul className="text-sm text-muted-foreground space-y-1">
-              <li>• Nostalgist will open the game in a new emulator window</li>
-              <li>• Upload your .nes file or try the demo</li>
-              <li>• If nothing happens, check for popup blockers</li>
+              <li>• Upload your .nes file or play Battletoads</li>
               <li>• Use the Debug button to check if Nostalgist loaded correctly</li>
               <li>• Press F11 for fullscreen in the emulator window</li>
             </ul>
