@@ -64,8 +64,8 @@ const data = {
           url: "#",
         },
         {
-          title: "vet inte ännu",
-          url: "#",
+          title: "Feedback",
+          url: "/feedback",
         },
       ],
     },
