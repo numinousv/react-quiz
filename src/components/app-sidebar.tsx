@@ -24,9 +24,21 @@ const data = {
       title: "Quiz",
       url: "/quiz",
     },
+        {
+      title: "Emu",
+      url: "/emu",
+    },
+    {
+      title: "Game",
+      url: "/game",
+    },
     {
       title: "About",
       url: "/about",
+    },
+    {
+      title: "emu",
+      url: "/emu",
     },
   ],
 };

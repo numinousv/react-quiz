@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as GameRouteImport } from './routes/game'
+import { Route as EmuRouteImport } from './routes/emu'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +23,11 @@ const QuizRoute = QuizRouteImport.update({
 const GameRoute = GameRouteImport.update({
   id: '/game',
   path: '/game',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmuRoute = EmuRouteImport.update({
+  id: '/emu',
+  path: '/emu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -38,12 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/emu': typeof EmuRoute
   '/game': typeof GameRoute
   '/quiz': typeof QuizRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/emu': typeof EmuRoute
   '/game': typeof GameRoute
   '/quiz': typeof QuizRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/emu': typeof EmuRoute
   '/game': typeof GameRoute
   '/quiz': typeof QuizRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/game' | '/quiz'
+  fullPaths: '/' | '/about' | '/emu' | '/game' | '/quiz'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/game' | '/quiz'
-  id: '__root__' | '/' | '/about' | '/game' | '/quiz'
+  to: '/' | '/about' | '/emu' | '/game' | '/quiz'
+  id: '__root__' | '/' | '/about' | '/emu' | '/game' | '/quiz'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  EmuRoute: typeof EmuRoute
   GameRoute: typeof GameRoute
   QuizRoute: typeof QuizRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/game'
       fullPath: '/game'
       preLoaderRoute: typeof GameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/emu': {
+      id: '/emu'
+      path: '/emu'
+      fullPath: '/emu'
+      preLoaderRoute: typeof EmuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  EmuRoute: EmuRoute,
   GameRoute: GameRoute,
   QuizRoute: QuizRoute,
 }
